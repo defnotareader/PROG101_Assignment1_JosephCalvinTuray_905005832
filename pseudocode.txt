@@ -1,0 +1,57 @@
+### File 2: `pseudocode.txt` (Upload as a standalone file)
+// MODULE: PROG101 - Programming Logic and Design
+// PROJECT: Urban Waste Clogging & Flood Risk Early Warning System
+// STUDENT: Joseph Calvin Turay (905005832)
+
+START
+
+    String community
+    Real rain, blockage, risk
+    String level, choice
+    Boolean run = TRUE
+
+    WHILE run == TRUE DO
+        
+        DISPLAY "Enter community name:"
+        INPUT community
+
+        DISPLAY "Enter rainfall in mm/hr:"
+        INPUT rain
+
+        DISPLAY "Enter drain blockage percentage (0-100):"
+        INPUT blockage
+
+        IF rain < 0 OR blockage < 0 OR blockage > 100 THEN
+            DISPLAY "Error: Invalid numbers entered."
+        ELSE
+            risk = (rain * 0.6) + (blockage * 0.4)
+
+            IF risk < 20 THEN
+                level = "LOW"
+            ELSE IF risk < 45 THEN
+                level = "MODERATE"
+            ELSE IF risk < 70 THEN
+                level = "HIGH"
+            ELSE
+                level = "CRITICAL"
+            END IF
+
+            DISPLAY "-----------------------------------"
+            DISPLAY "Community: " + community
+            DISPLAY "Risk Score: " + risk
+            DISPLAY "Alert Level: " + level
+            DISPLAY "-----------------------------------"
+        END IF
+
+        DISPLAY "Analyze another community? (YES/NO):"
+        INPUT choice
+        
+        IF choice == "NO" OR choice == "no" OR choice == "No" OR choice == "N" OR choice == "n" THEN
+            run = FALSE
+        END IF
+
+    END WHILE
+
+    DISPLAY "System closed."
+
+END
