@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="PROG101 - Flood and Waste Risk Warning System"/>
+        <attribute name="authors" value="dell"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2026-10-04 10:42:59 PM"/>
+        <attribute name="created" value="ZGVsbDtERVNLVE9QLThSQlE4QTU7MjAyNi0xMC0wNDsxMDowNToyOCBQTTsyNzM0"/>
+        <attribute name="edited" value="ZGVsbDtERVNLVE9QLThSQlE4QTU7MjAyNi0xMC0wNDsxMDo0Mjo1OSBQTTsxOzI4NDc="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="communityName, alertLevel, choice" type="String" array="False" size=""/>
+            <declare name="rainfall, blockage, riskScore" type="Real" array="False" size=""/>
+            <declare name="keepRunning" type="Boolean" array="False" size=""/>
+            <assign variable="keepRunning" expression="True"/>
+            <while expression="keepRunning == True">
+                <output expression="&quot;Enter community name: &quot;" newline="True"/>
+                <input variable="communityName"/>
+                <output expression="&quot;Enter rainfall in mm/hr: &quot;" newline="True"/>
+                <input variable="rainfall"/>
+                <output expression="&quot;Enter drain blockage percentage (0-100): &quot;" newline="True"/>
+                <input variable="blockage"/>
+                <if expression="rainfall &lt; 0 OR blockage &lt; 0 OR blockage &gt; 100">
+                    <then>
+                        <output expression="&quot;Invalid Input Error&quot;" newline="True"/>
+                    </then>
+                    <else>
+                        <assign variable="riskScore" expression="(rainfall * 0.6) + (blockage * 0.4)"/>
+                        <if expression="riskScore &lt; 20">
+                            <then>
+                                <assign variable="alertLevel" expression="&quot;LOW&quot;"/>
+                            </then>
+                            <else>
+                                <if expression="riskScore &lt; 45">
+                                    <then>
+                                        <assign variable="alertLevel" expression="&quot;MODERATE&quot;"/>
+                                    </then>
+                                    <else>
+                                        <if expression="riskScore &lt; 70">
+                                            <then>
+                                                <assign variable="alertLevel" expression="&quot;HIGH&quot;"/>
+                                            </then>
+                                            <else>
+                                                <assign variable="alertLevel" expression="&quot;CRITICAL&quot;"/>
+                                            </else>
+                                        </if>
+                                    </else>
+                                </if>
+                            </else>
+                        </if>
+                        <output expression="&quot;Community: &quot; &amp; communityName &amp; &quot; | Risk Score: &quot; &amp; riskScore &amp; &quot; | Alert Level: &quot; &amp; alertLevel" newline="True"/>
+                    </else>
+                </if>
+                <output expression="&quot;Analyze another community? (YES/NO): &quot;" newline="True"/>
+                <input variable="choice"/>
+                <if expression="choice == &quot;NO&quot; OR choice == &quot;no&quot; OR choice == &quot;No&quot; OR choice == &quot;N&quot; OR choice == &quot;n&quot;">
+                    <then>
+                        <assign variable="keepRunning" expression="False"/>
+                    </then>
+                    <else/>
+                </if>
+            </while>
+            <output expression="&quot;System closed.&quot;" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>
